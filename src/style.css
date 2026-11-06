@@ -1,0 +1,220 @@
+:root {
+  --bg: #fdf6f0;
+  --text: #2e2a26;
+  --accent: #d47291;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1917;
+    --text: #f3ece6;
+    --accent: #e8a0b4;
+  }
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Fredoka", "Georgia", serif;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 12px;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.artwork-section {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.artwork {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  rotate: 90deg;
+  animation: bounce 1.2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-16px);
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: confetti-burst ease-out forwards;
+}
+
+@keyframes confetti-burst {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--drift-x), calc(var(--drift-y) + 100px)) rotate(var(--rotation)) scale(2);
+    opacity: 0;
+  }
+}
+
+.game-page {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.game-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 32px auto;
+}
+
+.card-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.card-spacer {
+  width: 70px;
+  height: 70px;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+  perspective: 600px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card.matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card.matched .card-face {
+  background: #eaf5ec;
+  border-color: #7ec8a9;
+}
+
+.card-cover-img {
+  width: 60%;
+  height: 60%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-cover,
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  font-size: 1.8rem;
+  border: 2px solid var(--accent);
+}
+
+.card-cover {
+  background: #ffb4c3;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.card-face {
+  background: #fff;
+  transform: rotateY(180deg);
+}
+
+.win-message {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.win-message.visible {
+  opacity: 1;
+}
+
+.card-face-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.home-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 24px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.home-button.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
